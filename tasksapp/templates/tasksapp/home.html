@@ -1,0 +1,21 @@
+{% extends 'tasksapp/base.html' %}
+
+{% block content %}
+
+<br>
+<br>
+<br>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-7 text-center">
+
+        <h1>Manage Your Tasks</h1>
+        <br>
+        <p>Life is a chaos and it should be organized to become successfull. With The Tasks you can make it organized by managing your tasks for a day/year/life.</p>
+        <p>On your device. Now. Without email confirmation.
+        </p>
+        <br>
+        <a role="button" class="btn btn-primary btn-lg" href="{% if user.is_authenticated %}{% url 'create_task' %}{% else %}{% url 'sign_up_user' %}{% endif %}">Start</a>
+    </div>
+</div>
+
+{% endblock %}

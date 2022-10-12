@@ -1,0 +1,71 @@
+{% extends 'tasksapp/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <h2>Edit a Task</h2>
+    </div>
+</div>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Title" name="title" value="{{ task.title }}" required>
+                <label for="floatingInput">Title</label>
+            </div>
+            <br>
+            <div class="form-floating">
+                <textarea class="form-control" id="floatingInput" placeholder="Memo" rows="5" name="memo">{{ task.memo }}</textarea>
+                <label for="floatingInput">Memo</label>
+            </div>
+            <br>
+            <div class="form-group form-check">
+                <input type="checkbox" name="important_to_do" class="form-check-input" id="important" {% if task.important_to_do %}checked{% endif %}>
+                <label class="form-check-label" for="important">Important to do</label>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+            {% if task.completed_time%}
+            <button type="button" class="btn btn-lg btn-success" onclick="$('#redo').click()">Redo</button>
+            {% endif %}
+            {% if task.completed_time is None %}
+            <button type="button" class="btn btn-lg btn-success" onclick="$('#complete').click()">Complete</button>
+            {% endif %}
+            <button type="button" class="btn btn-lg btn-danger" onclick="$('#delete').click()">Delete</button>
+        </form>
+    </div>
+</div>
+
+{% if task.completed_time %}
+    <form style='display: none;' method="POST" action="{% url 'redo_task' task.id %}">
+        {% csrf_token %}
+        <button id="redo" type="submit">Redo</button>
+    </form>
+{% endif %}
+
+{% if task.completed_time is None %}
+    <form style='display: none;' method="POST" action="{% url 'complete_task' task.id %}">
+        {% csrf_token %}
+        <button id="complete" type="submit">Complete</button>
+    </form>
+{% endif %}
+
+<form style='display: none;' method="POST" action="{% url 'delete_task' task.id %}">
+    {% csrf_token %}
+    <button id="delete" type="submit">Delete</button>
+</form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}
