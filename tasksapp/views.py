@@ -54,29 +54,37 @@ def sign_up_user(request):
                 return render(
                     request, 
                     'tasksapp/sign_up_user.html', 
-                    {'error': 'The username is already taken. Please choose another one.', 
-                    'username': username}
+                    {
+                        'error': 'The username is already taken. Please choose another one.', 
+                        'username': username
+                    }
                 )
         else:
             if not passwords_match:
                 return render(
                     request, 
                     'tasksapp/sign_up_user.html', 
-                    {'error': 'Passwords do not match.', 
-                    'username': username}
+                    {
+                        'error': 'Passwords do not match.', 
+                        'username': username
+                    }
                 )
             if not full_fields:
                 return render(
                     request, 
                     'tasksapp/sign_up_user.html', 
-                    {'error': 'The fields must not be empty.'}
+                    {
+                        'error': 'The fields must not be empty.'
+                    }
                 )
             if not eligible_password:
                 return render(
                     request, 
                     'tasksapp/sign_up_user.html', 
-                    {'error': 'Password must be equal or longer than 6 symbols.', 
-                    'username': username}
+                    {
+                        'error': 'Password must be equal or longer than 6 symbols.', 
+                        'username': username
+                    }
                 )
 
 
@@ -95,15 +103,19 @@ def log_in_user(request):
             return render(
                 request, 
                 'tasksapp/log_in_user.html', 
-                {'error': 'The fields must not be empty.', 
-                'username': username}
+                {
+                    'error': 'The fields must not be empty.', 
+                    'username': username
+                }
             )
         if user is None:
             return render(
                 request, 
                 'tasksapp/log_in_user.html', 
-                {'error': 'The user does not exist.', 
-                'username': username}
+                {
+                    'error': 'The user does not exist.', 
+                    'username': username
+                }
             )
         else:
             login(request, user)
@@ -123,7 +135,9 @@ def create_task(request):
         return render(
             request, 
             'tasksapp/create_task.html', 
-            {'form': TaskForm()}
+            {
+                'form': TaskForm()
+            }
         )
     else:
         try:
@@ -136,8 +150,10 @@ def create_task(request):
             return render(
                 request, 
                 'tasksapp/create_task.html', 
-                {'form': TaskForm(), 
-                'error': 'Title\'s max length: 100. Memo\'s max length: 1000.'}
+                {
+                    'form': TaskForm(), 
+                    'error': 'Title\'s max length: 100. Memo\'s max length: 1000.'
+                }
             )
 
 
@@ -147,7 +163,9 @@ def current_tasks(request):
     return render(
         request, 
         'tasksapp/current_tasks.html', 
-        {'tasks': tasks}
+        {
+            'tasks': tasks
+        }
     )
 
 
@@ -161,7 +179,9 @@ def completed_tasks(request):
     return render(
         request, 
         'tasksapp/completed_tasks.html', 
-        {'tasks': tasks}
+        {
+            'tasks': tasks
+        }
     )
 
 
